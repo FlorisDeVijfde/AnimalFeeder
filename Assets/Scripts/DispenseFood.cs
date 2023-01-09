@@ -47,18 +47,26 @@ public class DispenseFood : MonoBehaviour
             foodSelect[index].SetActive(true);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && foodAllowed)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            foodSelect[index].SetActive(false);
-            //Instantiate new food object
-            Instantiate(foodDrop[index], transform.position, transform.rotation);
-            foodAllowed = false;
-            //steaks may be provided twice, other foods not. If it's the first steak, allow another.
-            if (foodDrop[index].tag == "steak" && steakCount < 1)
+            //Steaks are allowed twice, others not
+            if (foodSelect[index].tag == "steak")
             {
-                steakCount++;
-                foodAllowed = true;
+                if (steakCount < 2)
+                { 
+                    foodAllowed = true;
+                    steakCount++;
+                }
             }
+
+            if (foodAllowed)
+            {
+                foodSelect[index].SetActive(false);
+                //Instantiate new food object
+                Instantiate(foodDrop[index], transform.position, transform.rotation);
+                foodAllowed = false;
+            }
+       
         }
     }
 }
