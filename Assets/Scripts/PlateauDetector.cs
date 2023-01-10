@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class PlateauDetector : MonoBehaviour
 {
-    private List<string> tags;
+    /*private List<string> tags;
     private Rigidbody foodRb;
     private BoxCollider foodBc;
+    //private Rigidbody plateauRb;
+    private BoxCollider plateauBc;
 
     // Start is called before the first frame update
     void Start()
     {
         tags = new List<string>(){"carrot", "banana", "steak", "fish"};
+
+        //plateauRb = GetComponent<Rigidbody>();
+        plateauBc = GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -31,6 +36,9 @@ public class PlateauDetector : MonoBehaviour
 
             foodBc = other.GetComponent<BoxCollider>();
             foodBc.isTrigger = true;
+
+            //plateau triggers collision with food but should not trigger collision with animal
+            plateauBc.isTrigger = false;
         }
-    }
+    }*/
 }
