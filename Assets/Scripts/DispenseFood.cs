@@ -9,11 +9,13 @@ public class DispenseFood : MonoBehaviour
     public GameObject plateau1;
     public GameObject plateau2;
     private int[] steakCounts = { 0, 0 };
-    private bool[] foodsAllowed = { true, true };
+    private int[] otherCounts = { 0, 0 };
 
     private int index = 0;
-    private enum leftOrRight {left, right};
+    private enum leftOrRight { left, right };
     private int position;
+
+    private Rigidbody foodRb;
 
     // Start is called before the first frame update
     void Start()
@@ -68,34 +70,46 @@ public class DispenseFood : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //Steaks are allowed twice per dispenser, others not
+            //Steaks may be dropped twice on the same plateau, others once.
+            //Other foods are never allowed with another food.
             if (foodSelect[index].tag == "steak")
             {
-                if (steakCounts[position] < 2)
+                if (steakCounts[position] < 2 && otherCounts[position] < 1)
                 {
-                    foodsAllowed[position] = true;
+                    dropFood();
                     steakCounts[position]++;
                 }
             }
-
-            if (foodsAllowed[position])
+            else
             {
-                foodSelect[index].SetActive(false);
-                //Instantiate new food object and forbid new food until food is dismissed or eaten
-                Instantiate(foodDrop[index], transform.position, transform.rotation);
-                foodsAllowed[position] = false;
+                if (steakCounts[position] == 0 && otherCounts[position] < 1)
+                {
+                    dropFood();
+                    otherCounts[position]++;
+                }
             }
-       
         }
     }
 
-    public void ResetDispenser(int pos)
+    void dropFood()
     {
-        //Allow new food
-        foodsAllowed[pos] = true;
-        //Reset counter
-        steakCounts[pos] = 0;
+            foodSelect[index].SetActive(false);
+            //Instantiate new food object and forbid new food until food is dismissed or eaten
+            Instantiate(foodDrop[index], transform.position, transform.rotation);
     }
 
+    public void ResetDispenser(int pos)
+     {
+            //Allow new food by resetting counters
+            steakCounts[pos] = 0;
+            otherCounts[pos] = 0;
+     }
+
+    public void RejectFood()
+    {
+        foodRb = foodDrop[index].GetComponent<Rigidbody>();
+        float speed = 0.01f;
+        foodRb.AddForce(Vector3.forward * speed, ForceMode.Impulse);
+    }
 
 }

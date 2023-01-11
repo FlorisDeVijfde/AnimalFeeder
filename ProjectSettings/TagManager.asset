@@ -8,6 +8,8 @@ TagManager:
   - steak
   - carrot
   - fish
+  - exit
+  - backwall
   layers:
   - Default
   - TransparentFX
