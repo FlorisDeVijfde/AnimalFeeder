@@ -8,6 +8,7 @@ public class MoveAnimal : MonoBehaviour
     private DispenseFood dispenseFood;
     private SpawnManager spawnManager;
     private Rigidbody foodRb;
+    private GameManager gameManager;
 
     private float speed = 3.0f;
     private Vector3 direction = Vector3.forward;
@@ -21,6 +22,11 @@ public class MoveAnimal : MonoBehaviour
     {
         dispenseFood = FindObjectOfType<DispenseFood>();
         spawnManager = FindObjectOfType<SpawnManager>();
+        gameManager = FindObjectOfType<GameManager>();
+
+        //trying to create new monobehavious with new keyword not allowed...
+        //dispenseFood = new DispenseFood();
+        //gameManager = new GameManager();
 
         //From camera perspective, on which track the animal is
         if (transform.position.x < 0)
@@ -47,12 +53,14 @@ public class MoveAnimal : MonoBehaviour
         foodRb = food.GetComponent<Rigidbody>();
         float speed = 10.0f;
         foodRb.AddForce(Vector3.forward * speed, ForceMode.Impulse);
+        //Update reject score
+        gameManager.AddReject();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         //Remember: at least ONE object must have Rigidbody and One must have IsTrigger!
-        if (other.tag == "banana")
+        if (other.tag == "banana") //eat
         {
             //Animal is fed and walks away to side
             if (position == (int)leftOrRight.left)
@@ -65,6 +73,10 @@ public class MoveAnimal : MonoBehaviour
             }
             //Remove food
             Destroy(other);
+            //Score
+            gameManager.Score();
+            //Food needs to be allowed again
+            dispenseFood.ResetDispenser(position);
         }
         else if (other.tag == "exit")
         {
@@ -76,14 +88,14 @@ public class MoveAnimal : MonoBehaviour
             //Animal walks forward after walking back
             direction = Vector3.forward;
         }
-        else
+        else //reject
         {
             //Animal walks back
             direction = Vector3.back;
             //Reject food: push it away
             RejectFood(other);
+            //Food needs to be allowed again
+            dispenseFood.ResetDispenser(position);
         }
-        //Food needs to be allowed again
-        dispenseFood.ResetDispenser(position);
     }
 }
