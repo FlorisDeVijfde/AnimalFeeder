@@ -18,12 +18,6 @@ public class SpawnManager : MonoBehaviour
         SpawnAnimal(x * -1);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SpawnAnimal(float x_input)
     {
         x = x_input;

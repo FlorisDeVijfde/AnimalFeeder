@@ -4,7 +4,6 @@ using UnityEngine;
 using TMPro;
 //for button
 //using UnityEngine.UI;
-using System.IO;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -12,28 +11,34 @@ public class GameManager : MonoBehaviour
     private int score = 0;
     private int rejects = 0;
     private int maxRejects = 3;
+    private bool newTopScore = false;
 
+    public TextMeshProUGUI playerNameText;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI topScoreText;
     public TextMeshProUGUI rejectedText;
-
     public GameObject gameOver;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        playerNameText.text = PersistanceManager.Instance.playerName;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //Read and update topscore
+        PersistanceManager.Instance.LoadTopScore();
+        topScoreText.text = "Topscore: " + PersistanceManager.Instance.topScorerName + " (" + PersistanceManager.Instance.topScore + ")";
     }
 
     public void Score()
     {
         score++;
         scoreText.text = "Score: " + score;
+
+        if (score > PersistanceManager.Instance.topScore)
+        {
+            newTopScore = true;
+            topScoreText.text = PersistanceManager.Instance.playerName + " (" + score + ")";
+        }
     }
 
     public void AddReject()
@@ -49,6 +54,10 @@ public class GameManager : MonoBehaviour
     public void ReturnToMenu()
     {
         SceneManager.LoadScene("Menu");
+        if (newTopScore)
+        {
+            PersistanceManager.Instance.SaveTopScore(score);
+        }
     }
 
     void GameOver()
