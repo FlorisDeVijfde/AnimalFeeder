@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class Menu : MonoBehaviour
 {
@@ -18,6 +21,12 @@ public class Menu : MonoBehaviour
 
     public void ExitGame()
     {
-
+#if UNITY_EDITOR
+        //testmode in Unity...compiled in Unity Editor
+        EditorApplication.ExitPlaymode();
+#else
+        //Real application
+        Application.Quit();
+#endif
     }
 }
