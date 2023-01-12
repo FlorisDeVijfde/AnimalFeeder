@@ -90,12 +90,12 @@ public class MoveAnimal : MonoBehaviour
         }
         else //reject
         {
-            //Animal walks back
-            direction = Vector3.back;
             //Reject food: push it away
             RejectFood(other);
             //Food needs to be allowed again
             dispenseFood.ResetDispenser(position);
+            //Animal walks back
+            direction = Vector3.back;
         }
     }
 }
