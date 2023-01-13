@@ -8,14 +8,14 @@ public class DispenseFood : MonoBehaviour
     public List<GameObject> foodDrop;
     public GameObject plateau1;
     public GameObject plateau2;
-    private int[] steakCounts = { 0, 0 };
-    private int[] otherCounts = { 0, 0 };
+
+    //Visible in inspector without being public
+    [SerializeField] private int[] steakOrCarrotCounts = { 0, 0 };
+    [SerializeField] private int[] otherCounts = { 0, 0 };
 
     private int index = 0;
     private enum leftOrRight { left, right };
     private int position;
-
-    private Rigidbody foodRb;
 
     // Start is called before the first frame update
     void Start()
@@ -70,19 +70,22 @@ public class DispenseFood : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //Steaks may be dropped twice on the same plateau, others once.
-            //Other foods are never allowed with another food.
-            if (foodSelect[index].tag == "steak")
+            //Steaks and carrots may be dropped twice on the same plateau, others once.
+            //Other foods are never allowed with another food. Only combinations of steak and carrot or set of two steaks/two carrots.
+            List<string> horsefood = new List<string>() { "steak", "carrot" };
+
+            //if (foodSelect[index].tag == "steak")
+            if (horsefood.Contains(foodSelect[index].tag))
             {
-                if (steakCounts[position] < 2 && otherCounts[position] < 1)
+                if (steakOrCarrotCounts[position] < 2 && otherCounts[position] < 1)
                 {
                     dropFood();
-                    steakCounts[position]++;
+                    steakOrCarrotCounts[position]++;
                 }
             }
             else
             {
-                if (steakCounts[position] == 0 && otherCounts[position] < 1)
+                if (steakOrCarrotCounts[position] == 0 && otherCounts[position] < 1)
                 {
                     dropFood();
                     otherCounts[position]++;
@@ -93,7 +96,7 @@ public class DispenseFood : MonoBehaviour
 
     void dropFood()
     {
-            foodSelect[index].SetActive(false);
+            //foodSelect[index].SetActive(false);
             //Instantiate new food object and forbid new food until food is dismissed or eaten
             Instantiate(foodDrop[index], transform.position, transform.rotation);
     }
@@ -101,15 +104,7 @@ public class DispenseFood : MonoBehaviour
     public void ResetDispenser(int pos)
      {
             //Allow new food by resetting counters
-            steakCounts[pos] = 0;
+            steakOrCarrotCounts[pos] = 0;
             otherCounts[pos] = 0;
      }
-
-    public void RejectFood()
-    {
-        foodRb = foodDrop[index].GetComponent<Rigidbody>();
-        float speed = 0.01f;
-        foodRb.AddForce(Vector3.forward * speed, ForceMode.Impulse);
-    }
-
 }

@@ -1073,7 +1073,7 @@ GameObject:
   - component: {fileID: 3594314017958133752}
   - component: {fileID: 3594314017949060760}
   - component: {fileID: 3594314018606619063}
-  - component: {fileID: 3594314018606619060}
+  - component: {fileID: -6319561145106260309}
   m_Layer: 0
   m_Name: chicken
   m_TagString: Untagged
@@ -1137,7 +1137,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.7991586, y: 16.887615, z: 21.121977}
   m_Center: {x: -0.3672263, y: 7.943806, z: -0.92535615}
---- !u!114 &3594314018606619060
+--- !u!114 &-6319561145106260309
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1146,7 +1146,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3594314017958477640}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e55fba2eab7742c582e1cd9ce30a62e, type: 3}
+  m_Script: {fileID: 11500000, guid: a017e3b7baec64edda9508677bf4400a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3594314017958482108

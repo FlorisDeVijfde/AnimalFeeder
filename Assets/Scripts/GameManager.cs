@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
     private int score = 0;
     private int rejects = 0;
-    private int maxRejects = 3;
+    private int maxRejects = 5;
     private bool newTopScore = false;
 
     public TextMeshProUGUI playerNameText;
