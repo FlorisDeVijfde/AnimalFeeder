@@ -979,7 +979,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Rejected: 0/3
+  m_text: 'Rejected: 0
 
 
 '
@@ -1252,6 +1252,8 @@ MonoBehaviour:
   - {fileID: 798180715541952793, guid: 33d31a6eb6c9941b4913e8d7df657f56, type: 3}
   plateau1: {fileID: 696095416}
   plateau2: {fileID: 282999385}
+  steakOrCarrotCounts: 0000000000000000
+  otherCounts: 0000000000000000
 --- !u!1 &1184005440
 GameObject:
   m_ObjectHideFlags: 0

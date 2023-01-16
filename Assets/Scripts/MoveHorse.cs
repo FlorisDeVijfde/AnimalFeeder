@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveHorse : MoveAnimal
 {
     //Expression body, shorthand for property. Use blockbody for property otherwise
-    protected override List<string> diet => new List<string>() { "carrot", "meat" };
+    protected override List<string> diet => new List<string>() { "carrot", "steak" };
     protected override float speed => 3.0f;
 
     //Extra variable for horse. It has to eat two foods
@@ -17,7 +17,10 @@ public class MoveHorse : MoveAnimal
         //if (other.tag == "banana") //eat
         if (diet.Contains(other.tag))
         {
+            //necessary extra for feeding horse
             feedCount++;
+            //Remove food here instead
+            Destroy(other);
 
             if (feedCount >= 2)
             {
@@ -30,8 +33,6 @@ public class MoveHorse : MoveAnimal
                 {
                     direction = Vector3.right;
                 }
-                //Remove food
-                Destroy(other);
                 //Score
                 gameManager.Score();
                 //Food needs to be allowed again
