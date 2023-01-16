@@ -1,3 +1,5 @@
+//Inheritance, encapsulation and polymorphism applied here. MoveAnimal is parent class.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,15 +7,22 @@ using static DispenseFood;
 
 public class MoveAnimal : MonoBehaviour
 {
+    //Encapsulation
+
     protected DispenseFood dispenseFood;
     protected SpawnManager spawnManager;
     protected Rigidbody foodRb;
     protected GameManager gameManager;
 
+    //Inheritance
+
     //Properties for inheritance
     //Must be property for override inheritance
     //Protected is inherited, private not.
     //Expression body, shorthand for property. Use blockbody for property otherwise.
+
+    //Polymorphism
+    //in the Move... scripts
     protected virtual List<string> diet => new List<string>() { "fish" };
     //Blockbody instead of expression body, more code for property
     protected virtual float speed

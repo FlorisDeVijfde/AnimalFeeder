@@ -1,3 +1,5 @@
+//Persistance between scenes through singleton and persistance between sessions through json filesave utility
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
